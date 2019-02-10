@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFJS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.14.1/dist/tf.min.js"></script>
+
+    <script src="app.js"></script>
+</head>
+<body>
+<p></p>
+ <div class="container">
+   <div class="row">
+       <div class="col-md-3">
+           <p>
+               <label>Training Data Set:</label>
+           </p>
+           <div class="panel panel-primary">
+               <div class="panel-body">
+                   <table class="table">
+                       <thead>
+                       <tr>
+                           <th>X1</th><th>X2</th><th>Y</th>
+                       </tr>
+                       </thead>
+                       <tbody id="trainigDataSet">
+
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+       </div>
+       <div class="col-md-4">
+           <p>
+               <label>Model:</label>
+           </p>
+           <div class="panel panel-primary">
+               <div class="panel-body">
+                   <img src="model.png" style="width: 80%">
+               </div>
+           </div>
+       </div>
+       <div class="col-md-4">
+           <p>
+               <label>Model Training:</label>
+           </p>
+           <div class="panel panel-primary">
+               <div class="panel-body">
+                   <form>
+                       <label>Epochs:</label>
+                       <input id="epochs" type="text" size="2">
+                       <label>It.:</label>
+                       <input id="iterations" type="text" size="2">
+                       <label>LR:</label>
+                       <input id="learningRate" type="text" size="2">
+                       <label>H.Nodes:</label>
+                       <input id="numberHiddenNodes" type="text" size="2">
+                   </form>
+
+                   <button class="btn btn-danger" onclick="onTrain()">Train the model</button>
+                   <button id="btnSave" style="display: none" class="btn btn-danger" onclick="onSaveModel()">Save the model</button>
+                   <p></p>
+                   <div class="progress">
+                       <div id="pb1" class="progress-bar" role="progressbar" aria-valuenow="0"
+                            aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                           <span class="sr-only">70% Complete</span>
+                       </div>
+                   </div>
+                   <div>
+                       <label>Loss:</label>
+                       <label id="loss"></label>
+                   </div>
+                   <div>
+                       <label>Duration:</label>
+                       <label id="duration"></label><label> (ms)</label>
+                   </div>
+               </div>
+           </div>
+
+       </div>
+
+   </div>
+   <div class="row">
+       <button class="btn btn-primary" onclick="onloadModel()">Load Model</button>
+   </div>
+     <div class="row" style="display: none" id="divTestModel">
+
+         <div class="col-md-3">
+             <p>
+                 <label>Results:</label>
+             </p>
+            <div class="panel panel-primary">
+
+                <div class="panel-body">
+                    <div>
+                        <label>X1:</label>
+                        <input type="text" id="x1" size="4" value="0" ></input>
+                    </div>
+                    <div class="form-group">
+                        <label>X2:</label>
+                        <input type="text" id="x2" value="0" size="4"></input>
+                    </div>
+                    <button class="btn btn-primary" onclick="onTestModel()">Guess</button>
+                </div>
+            </div>
+
+         </div>
+
+         <div class="col-md-3">
+             <p>
+                 <label>Results:</label>
+             </p>
+             <div class="panel panel-primary">
+
+                 <div class="panel-body">
+                     <table class="table">
+                         <tr>
+                             <th>X1</th><th>Y1</th><th>Result</th>
+                         </tr>
+                         <tbody id="guessResult">
+
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+
+         </div>
+
+         <div class="col-md-5">
+             <p>
+                 <label>Chart:</label>
+             </p>
+             <div class="panel panel-primary">
+                 <button class="btn btn-primary" onclick="onDrawChart('x1')">Output(x1)</button>
+                 <button class="btn btn-primary" onclick="onDrawChart('x2')">Output(x2)</button>
+                 <canvas id="myChart" width="400" height="200"></canvas>
+             </div>
+
+         </div>
+     </div>
+
+</div>
+
+</body>
+</html>
